@@ -36,10 +36,49 @@ def load_data(file_path):
 
         
 class FIFO:
-    def __init__(self, capacity):
+    def __init__(self, capacity, requests, num_requests):
         self.capacity = capacity
         self.misses = 0
 
+        i = 0
+        deleteKey = 0
+        cacheElements = {}
+        q = deque([])
+
+        while i < len(requests):
+
+            #hit
+            if(requests[i] in cacheElements.values()):
+                i += 1
+                continue
+
+            #miss
+            else:
+                #queue at capacity --> remove least used request and add latest request
+                if (len(q) == capacity):
+
+                    #deletion
+                    removeElement = q.popleft()
+
+                    for key in cacheElements:
+                        if cacheElements[key] == removeElement:
+                            deleteKey = key
+
+                    del cacheElements[deleteKey]
+
+                    #add new request
+                    q.append(requests[i])
+                    cacheElements[i] = requests[i]
+
+                #queue not at capacity --> add new request
+                else:
+                    q.append(requests[i])
+                    cacheElements[i] = requests[i]
+                self.misses += 1
+
+            i += 1
+
+        print("misses", self.misses)
 
 class LRU:
     def __init__(self, capacity, requests, num_requests):
@@ -71,5 +110,7 @@ class OPTFF:
 
 
 capacity, requests, num_requests = load_data("data.txt")
+
 print(capacity, requests, num_requests)
 
+testObject = FIFO(capacity, requests, num_requests)
