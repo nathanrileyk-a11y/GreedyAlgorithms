@@ -29,7 +29,7 @@ def load_data(file_path):
 
         if len(requests) != num_requests:
             raise ValueError("Number of requests in second line does not match number of requests stated in first line")
-        return (capacity, requests)
+        return (capacity, requests, num_requests)
         
         
 
@@ -53,6 +53,6 @@ class OPTFF:
 
 
 
-capacity, requests = load_data("data.txt")
-print(capacity, requests)
+capacity, requests, num_requests = load_data("data.txt")
+print(capacity, requests, num_requests)
 
