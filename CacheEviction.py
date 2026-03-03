@@ -1,4 +1,5 @@
 from collections import deque
+from LinkedList import DoublyLinkedList
 
 
 def load_data(file_path):
@@ -41,9 +42,25 @@ class FIFO:
 
 
 class LRU:
-    def __init__(self, capacity):
+    def __init__(self, capacity, requests, num_requests):
         self.capacity = capacity
+        self.requests = requests
+        self.num_requests = num_requests
         self.misses = 0
+        self.cache = DoublyLinkedList()
+
+    def process(self, request):
+        if request in self.cache.hashmap:
+            self.cache.delete(request)
+            self.cache.insert_end(request)
+            return
+        else:
+            self.misses += 1
+        if len(self.cache.hashmap) == self.capacity:
+            head = self.cache.head.data
+            self.cache.delete(head)
+        self.cache.insert_end(request)
+        
 
 class OPTFF:
     def __init__(self, capacity):
