@@ -1,6 +1,6 @@
-from collections import deque
+from collections import deque, defaultdict
 from LinkedList import DoublyLinkedList
-
+import bisect
 
 def load_data(file_path):
     with open(file_path, 'r') as file:
@@ -78,6 +78,7 @@ class FIFO:
 
             i += 1
 
+        print("queue: ", q)
         print("misses", self.misses)
 
 class LRU:
@@ -99,14 +100,68 @@ class LRU:
             head = self.cache.head.data
             self.cache.delete(head)
         self.cache.insert_end(request)
-        
+
+#helper functions for OPTFF
+
+#use binary search to find the first occurrence where request's index position is greater than i, if it exists
+def getOccurence(cacheIndices, request, i):
+    indices = cacheIndices[request]
+    indexPos = bisect.bisect_right(indices, i)
+
+    #request either occurs before i or not in list at all
+    if indexPos == len(indices):
+        return float("inf")
+
+    return indices[indexPos]
+
+
+#set initial occurrences of each element in request list into dictionary
+def setIndices(requests, cacheIndices):
+    for i, request in enumerate(requests):
+        cacheIndices[request].append(i)
+
+    return  cacheIndices
 
 class OPTFF:
-    def __init__(self, capacity):
+
+    def __init__(self, capacity, requests, num_requests):
         self.capacity = capacity
         self.misses = 0
 
+        cacheIndices = defaultdict(list)
+        setIndices(requests, cacheIndices)
+        q = deque([])
+        i = 0
 
+        while i < len(requests):
+
+            #hit
+            if(requests[i] in q):
+                i += 1
+                continue
+
+            #miss
+            else:
+                #queue at capacity --> remove least used request and replace with latest request
+                if (len(q) == capacity):
+
+                    #compare each request index and return max value between all requests
+                    removeElement = max(q, key=lambda request: getOccurence(cacheIndices, request, i))
+                    q.remove(removeElement)
+
+                    # add new request
+                    q.append(requests[i])
+
+                #queue not at capacity --> add new request
+                else:
+                    q.append(requests[i])
+
+                self.misses += 1
+
+            i += 1
+
+        print("queue: ", q)
+        print("misses", self.misses)
 
 
 capacity, requests, num_requests = load_data("data.txt")
@@ -114,3 +169,4 @@ capacity, requests, num_requests = load_data("data.txt")
 print(capacity, requests, num_requests)
 
 testObject = FIFO(capacity, requests, num_requests)
+testOb2 = OPTFF(capacity, requests, num_requests)
