@@ -101,6 +101,10 @@ class LRU:
             self.cache.delete(head)
         self.cache.insert_end(request)
 
+    def print_accuracy(self):
+        print("Misses: ", self.misses)
+
+
 #helper functions for OPTFF
 
 #use binary search to find the first occurrence where request's index position is greater than i, if it exists
