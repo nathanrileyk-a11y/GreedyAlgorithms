@@ -1,5 +1,5 @@
 from collections import deque, defaultdict
-from LinkedList import DoublyLinkedList
+from .LinkedList import DoublyLinkedList
 import bisect
 
 
@@ -73,6 +73,7 @@ class LRU:
 
     def print_accuracy(self):
         print("Misses: ", self.misses)
+        print(self.cache)
 
 
 #helper functions for OPTFF

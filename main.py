@@ -1,5 +1,6 @@
 from src import CacheEviction
 from src import LinkedList
+import sys
 
 def load_data(file_path):
     with open(file_path, 'r') as file:
@@ -32,13 +33,22 @@ def load_data(file_path):
         return (capacity, requests, num_requests)
         
 def main():
-    capacity, requests, num_requests = load_data("data/data.txt")
+    if len(sys.argv) != 2:
+        raise AssertionError("Must have only input file name as argument in command line")
+    file_name = sys.argv[1]
+
+    capacity, requests, num_requests = load_data(f"data/{file_name}")
+
     testObject = CacheEviction.FIFO(capacity, requests, num_requests)
-    testOb2 = CacheEviction.OPTFF(capacity, requests, num_requests)
     test3 = CacheEviction.LRU(capacity, requests, num_requests)
+    for r in requests:
+        test3.process(r)
+    test3.print_accuracy()
+    testOb2 = CacheEviction.OPTFF(capacity, requests, num_requests)
+    
 
     return
-
+print(main())
 
 
 
