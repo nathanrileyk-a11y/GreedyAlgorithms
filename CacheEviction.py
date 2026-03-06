@@ -149,6 +149,9 @@ class OPTFF:
                     removeElement = max(q, key=lambda request: getOccurence(cacheIndices, request, i))
                     q.remove(removeElement)
 
+                    # add new request
+                    q.append(requests[i])
+
                 #queue not at capacity --> add new request
                 else:
                     q.append(requests[i])
