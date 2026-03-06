@@ -45,7 +45,12 @@ def main():
         test3.process(r)
     test3.print_accuracy()
     testOb2 = CacheEviction.OPTFF(capacity, requests, num_requests)
-    
+
+    out_name = file_name.rsplit('.', 1)[0] + '.out'
+    with open(f"data/{out_name}", 'w') as f:
+        f.write(f"FIFO  : {testObject.misses}\n")
+        f.write(f"LRU   : {test3.misses}\n")
+        f.write(f"OPTFF : {testOb2.misses}\n")
 
     return
 print(main())
