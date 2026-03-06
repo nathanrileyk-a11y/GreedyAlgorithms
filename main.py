@@ -1,3 +1,6 @@
+from src import CacheEviction
+from src import LinkedList
+
 def load_data(file_path):
     with open(file_path, 'r') as file:
         first = file.readline()
@@ -28,10 +31,14 @@ def load_data(file_path):
             raise ValueError("Number of requests in second line does not match number of requests stated in first line")
         return (capacity, requests, num_requests)
         
-
-
 def main():
     capacity, requests, num_requests = load_data("data/data.txt")
-    print(2)
+    testObject = CacheEviction.FIFO(capacity, requests, num_requests)
+    testOb2 = CacheEviction.OPTFF(capacity, requests, num_requests)
+    test3 = CacheEviction.LRU(capacity, requests, num_requests)
+
     return
-main()
+
+
+
+
