@@ -1,5 +1,5 @@
 # GreedyAlgorithms
-Nathan King
+Nathan King - 72180427
 
 Natahja Graddy - 69412034
 
