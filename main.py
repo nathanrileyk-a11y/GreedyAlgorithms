@@ -7,7 +7,7 @@ def load_data(file_path):
         first = file.readline()
         if first == '':
             raise ValueError("First line empty")
-        print(first)
+
         line1 = first.split()
         if len(line1) != 2:
             print("Error: Ensure first line has 2 integers")
@@ -53,7 +53,7 @@ def main():
         f.write(f"OPTFF : {testOb2.misses}\n")
 
     return
-print(main())
+main()
 
 
 
