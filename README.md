@@ -59,3 +59,11 @@ that are no longer needed in the future. It will find whichever element
 in the cache will no longer be used or has the farthest distance, and remove
 it so cache elements with more frequent uses are maintained.
 
+## Proof of Optimality of OPTFF
+
+Assume That A is some offline algorithm, and assume OPT is the farthest in the future algorithm. At some point t, A and OPT differ. construct B by changing A(t) to OPT(t) and keeping everything else the same for A. Then at time t, B will evict the request furthest in the future, f. And A will evict some other request g. Then A will have f in the cache and B will have g. then B will occur a hit on g and A will occur a miss. Between f and g, A and B use same eviction policy so B will have identical cache to A outside of f. 
+
+Then if f is reached, in one case A has f in the cache and is a hit, but B has a miss because f was evicted. Then since A and B are identical otherwise, A and B have the same number of misses. If A does not have f in cache, both miss and the number of misses in B is less than the number of misses in A. 
+If f is never reached and g is reached, then B will have one less miss than A since it evicted f and in that one case, g was a miss for A but not B. 
+If g and f are never reached, then the 2 evictions are equivelant so the number of misses will be the same. 
+So, in all 4 cases, B has less or equal to the number of misses than A. we can keep applying this argument to all t where A and OPT differ. So for any offline algorithm A, the number of misses of OPT is <= the number of misses of A.
