@@ -46,7 +46,7 @@ class FIFO:
 
             i += 1
 
-        print("Fifo Misses: ", self.misses)
+        print("Fifo:", self.misses)
 
 class LRU:
     def __init__(self, capacity, requests, num_requests):
@@ -69,7 +69,7 @@ class LRU:
         self.cache.insert_end(request)
 
     def print_accuracy(self):
-        print("LRU Misses: ", self.misses)
+        print("LRU:", self.misses)
 
 
 #helper functions for OPTFF
@@ -131,4 +131,4 @@ class OPTFF:
 
             i += 1
 
-        print("OPTFF Misses: ", self.misses)
+        print("OPTFF:", self.misses)
