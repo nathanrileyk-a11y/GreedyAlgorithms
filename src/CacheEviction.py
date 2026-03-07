@@ -3,8 +3,6 @@ from .LinkedList import DoublyLinkedList
 import bisect
 
 
-
-        
 class FIFO:
     def __init__(self, capacity, requests, num_requests):
         self.capacity = capacity
@@ -48,8 +46,7 @@ class FIFO:
 
             i += 1
 
-        print("queue: ", q)
-        print("misses", self.misses)
+        print("Fifo Misses: ", self.misses)
 
 class LRU:
     def __init__(self, capacity, requests, num_requests):
@@ -72,8 +69,7 @@ class LRU:
         self.cache.insert_end(request)
 
     def print_accuracy(self):
-        print("Misses: ", self.misses)
-        print(self.cache)
+        print("LRU Misses: ", self.misses)
 
 
 #helper functions for OPTFF
@@ -135,5 +131,4 @@ class OPTFF:
 
             i += 1
 
-        print("queue: ", q)
-        print("misses", self.misses)
+        print("OPTFF Misses: ", self.misses)
