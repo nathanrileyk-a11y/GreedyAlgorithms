@@ -7,7 +7,7 @@ Natahja Graddy - 69412034
 ## Run commands
 Run input files with the following command:
 
-python main.py num.in (replace num with 1,2,3, etc.)
+**python main.py num.in (replace num with 1,2,3, etc.)**
 
 ## Written Solutions
 
